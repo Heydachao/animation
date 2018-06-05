@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+     <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <style>
+        table{
+            margin: 100px auto;
+            width: 800px;
+            border-collapse: collapse;
+        }
+        th{
+            background: #ddd;
+        }
+        th,td{
+            height: 30px;
+            border:1px solid #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table id="subtable">
+        <thead>
+        <tr>
+            <th>地区</th>
+            <th>时间</th>
+            <th>品牌</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>广东</td>
+            <td>2018-5-1</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>广东</td>
+            <td>2018-2</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>广东</td>
+            <td>2018333</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>湖北</td>
+            <td>湖北2018-5-444</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>湖北</td>
+            <td>湖北2018-55555</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr
+        <tr>
+            <td>湖北</td>
+            <td>湖北2018-666</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr
+        <tr>
+            <td>湖北</td>
+            <td>湖北2018-777</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>江苏</td>
+            <td>2018-56666</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>江苏</td>
+            <td>2018-56666</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        <tr>
+            <td>浙江</td>
+            <td>2018-888</td>
+            <td>鸿新尔克</td>
+            <td>查看</td>
+        </tr>
+        </tbody>
+    </table>
+<script>
+    $(function(){
+        var start = "";
+        var num=1;//计算重复得个数
+        for(var a=0;a<=$("table tbody tr").length;a++){
+            if(start==$("table tbody tr").eq(a).find("td").eq(0).html()){
+                num++;
+            }else{
+                if(num>1){//大于1说明有重复的
+                    $("table tbody tr").eq(a-num).find("td").eq(0).attr("rowspan",num);//对其进行合并
+                    for(var j=(1+a-num);j<(a);j++){
+                        $("table tbody tr").eq(j).find("td").eq(0).remove();//rowspan之后多余的要删除
+                    }
+                    num=1;
+                }
+                start=$("table tbody tr").eq(a).find("td").eq(0).html();
+            }
+        }
+    })
+</script>
+</body>
+</html>

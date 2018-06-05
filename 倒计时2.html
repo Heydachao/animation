@@ -1,0 +1,41 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>倒计时</title>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div id="time_return"></div>
+  <script type="text/javascript">
+    var time_end = new Date("2018/5/10 16:25:0").getTime(),//设定倒计时截止日期
+        timeclear;
+        setTimeout("distance_time()");
+
+    function distance_time(){
+      var time_div = document.getElementById("time_return"),
+          time_start = new Date().getTime(),
+          time_distance = time_end -time_start;
+      if(!time_div){ return;}
+      if(time_distance>0){
+        var int_day,int_hour, int_minute, int_second;
+        int_day =  Math.floor(time_distance/(24*60*60*1000));
+        time_distance -=int_day*(24*60*60*1000);
+        int_hour =  Math.floor(time_distance/(60*60*1000));
+        time_distance -=int_hour*(60*60*1000);
+        int_minute =  Math.floor(time_distance/(60*1000));
+        time_distance -=int_minute*(60*1000);
+        int_second =  Math.floor(time_distance/1000);
+        $("#time_return").html(int_day +"天"+ int_hour +"时"+ int_minute +"分"+ int_second +"秒" )
+        setTimeout("distance_time()",1000);
+      }else{
+        alert("时间到！");
+        clearTimeout("timeclear");
+      }
+    }
+    </script>
+</body>
+
+</html>

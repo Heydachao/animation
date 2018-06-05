@@ -1,0 +1,26 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>功能：当前时间和对比时间比较</title>
+  <script src="http://libs.baidu.com/jquery/1.5.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+      //功能：当前时间和对比时间比较
+      contrast_time();                              
+      function contrast_time(){
+        var nowD = new Date(),                        //当前时间
+            endD = new Date('2017/12/13 20:00:00');   //对比时间
+        if( nowD.getTime() > endD.getTime()){         //getTime() 方法可返回距 1970 年 1 月 1 日之间的毫秒数。
+          alert('当前时间大于对比时间')
+        }else{
+          alert('当前时间小于对比时间')
+        }
+      }
+      </script>
+</body>
+
+</html>

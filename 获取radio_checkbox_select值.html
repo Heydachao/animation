@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>获取radio、checkbox、select值</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <p>获取radio值:
+            <span class="radio_items" style="color:red;font-weight: bold;margin-left: 10px;"></span>
+        </p>
+        <input type="radio" name="radio_items" onclick="checkradio()" value="1">
+        <input type="radio" name="radio_items" onclick="checkradio()" value="2">
+        <input type="radio" name="radio_items" onclick="checkradio()" value="3">
+        <input type="radio" name="radio_items" onclick="checkradio()" value="4">
+    </div>
+    <script>
+        $("input[type='radio'][value='3']").prop('checked', 'checked');
+        function checkradio() {
+            var item = $("input[type='radio']:checked").val();
+            $(".radio_items").text(item);
+        }
+    </script>
+    <hr />
+    <div>
+        <p>获取checkbox值：
+            <span class="checkbox_items" style="color:red;font-weight: bold;margin-left: 10px;"></span>
+        </p>
+        <input type="checkbox" name="checkbox_items" onclick="checkcheckbox()" value="1">
+        <input type="checkbox" name="checkbox_items" onclick="checkcheckbox()" value="2">
+        <input type="checkbox" name="checkbox_items" onclick="checkcheckbox()" value="3">
+        <input type="checkbox" name="checkbox_items" onclick="checkcheckbox()" value="4">
+    </div>
+    <script>
+        $("input[type='checkbox'][value='2']").prop('checked', 'checked');
+        function checkcheckbox() {
+            var item = [];
+            $("input[type='checkbox']:checked").each(function () {
+                item.push($(this).val());
+            });
+            $(".checkbox_items").text(item.join(","));
+        }
+    </script>
+    <hr />
+    <div>
+        <p>获取select值：
+            <span class="select_items" style="color:red;font-weight: bold;margin-left: 10px;"></span>
+        </p>
+        <select onchange="checkselect()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+    </div>
+    <script>
+        $("select").attr('value', '4');
+        function checkselect() {
+            var item = $("select option:checked").val();
+            $(".select_items").text(item);
+        }
+    </script>
+</body>
+
+</html>

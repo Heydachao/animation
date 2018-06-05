@@ -1,0 +1,323 @@
+
+<p>1.鼠标移入时，旋转一圈，可以这么做：</p>
+<div id="d1">div</div>
+<style>
+div#d1{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    transition:transform 2s linear;
+}
+div#d1:hover{
+    transform:rotate(360deg);
+}
+</style>
+
+
+<p>2.复合运动，既旋转又平移呢？这个很好做，transform首先是支持复合变换的：</p>
+<div id="d2">div</div>
+<style>
+div#d2{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    transition:transform 2s linear;
+}
+div#d2:hover{
+    transform:rotate(360deg) translateX(400px);
+}
+</style>
+
+
+<p>3.但是实现的效果跟我们想象不一样。上面效果走的是螺旋线，这是因为transform变换是有顺序的。上面的写法是先平移，再旋转，因此旋转的中心一直再变。我们可以交换一下顺序：</p>
+<div id="d3">div</div>
+<style>
+div#d3{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    transition:transform 2s linear;
+}
+div#d3:hover{
+    transform:translateX(400px) rotate(360deg);
+}
+</style>
+
+
+<p>4.之前的效果是旋转和平移的时间都是两秒。我希望平移的时间是1s，那么只用transform应该是做不到的。我们可以使用transition的复合运动：</p>
+<div id="d4">div</div>
+<style>
+div#d4{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    position:relative;
+    left:0;
+    transition:transform 2s linear, left 1s linear;
+}
+div#d4:hover{
+    transform:rotate(360deg);
+    left:400px;
+}
+</style>
+
+
+<p>5.因为旋转的时间是平移的两倍，因此效果是平移完时，旋转才进行了一半。如果我希望效果是反过来的，即先旋转1s，然后再边平移边旋转，可以使用延迟：</p>
+<div id="d5">div</div>
+<style>
+div#d5{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    position:relative;
+    left:0;
+    transition:transform 2s linear, left 1s 1s linear;
+}
+div#d5:hover{
+    transform:rotate(360deg);
+    left:400px;
+}
+</style>
+
+
+<p>6.此时我又希望情况变成这样，不要之前一秒的旋转了，直接从旋转的一半开始，边旋转边平移。此时要使用负延迟：</p>
+<div id="d6">div</div>
+<style>
+div#d6{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    position:relative;
+    left:0;
+    transition:transform 2s -1s linear, left 1s linear;
+}
+div#d6:hover{
+    transform:rotate(360deg);
+    left:400px;
+}
+</style>
+
+
+<p>7.transition不是强大的动画，有很多局限性。    第一，不支持无限动画。    第二，触发条件需要属性变化。  而animation比较强大，用“帧”的观点来说，transition只是animation的一帧。 比如说2次旋转：</p>
+<div id="d7">div</div>
+<style>
+div#d7{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:rotateqi 2s linear 2;
+}
+@keyframes rotateqi{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+</style>
+
+
+<p>8.旋转加平移：</p>
+<div id="d8">div</div>
+<style>
+div#d8{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:animateba 2s linear infinite;
+}
+@keyframes animateba{
+    100%{
+        transform:translateX(400px) rotate(360deg);
+    }
+}
+</style>
+
+
+<p>9.我希望像过渡一样，移入旋转平移，移出是逆向操作。那么animation能实现反复式旋转吗？答案是可以的，定义旋转方向为alternate：</p>
+<div id="d9">div</div>
+<style>
+div#d9{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:animatejiu 2s linear infinite alternate;
+}
+@keyframes animatejiu{
+    100%{
+        transform:translateX(400px) rotate(360deg);
+    }
+}
+</style>
+
+
+<p>10.上面的交替效果也可以通过中间帧的方式来实现：</p>
+<div id="d10">div</div>
+<style>
+div#d10{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:animateshi 4s linear infinite;
+}
+@keyframes animateshi{
+    50%{
+        transform:translateX(400px) rotate(360deg);
+    }
+}
+</style>
+
+
+<p>11.animation也是有复合效果的，因而可以实现交替动画。比如，先旋转1s，然后再平移1s，然后再放缩1s：</p>
+<div id="d11">div</div>
+<style>
+div#d11{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:rotateshiyi 1s linear,translateshiyi 1s 1s linear,scaleshiyi 1s 2s linear;
+}
+@keyframes rotateshiyi{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+@keyframes translateshiyi{
+    100%{
+        transform:translateX(400px);
+    }
+}
+@keyframes scaleshiyi{
+    100%{
+        transform:scale(1.5);
+    }
+}
+</style>
+
+
+<p>12.但是效果还是跟我们想象中的不太一样，我们希望平移后直接再那个位置进行放缩。因此我们要在最后那个动画上做点文章：</p>
+<div id="d12">div</div>
+<style>
+div#d12{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:rotateshier 1s linear,translateshier 1s 1s linear,scaleshier 1s 2s linear;
+}
+@keyframes rotateshier{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+@keyframes translateshier{
+    100%{
+        transform:translateX(400px);
+    }
+}
+@keyframes scaleshier{
+    0%{
+        transform:translateX(400px);
+    }
+    100%{
+        transform:translateX(400px) scale(1.5);
+    }
+}
+</style>
+
+
+<p>13.此效果只用一个动画的关键帧应该也能做到，留作作业。这里再讨论一个时期，我们希望整个动画停留在最后一帧的最终效果上，那么请使用forwards：</p>
+<div id="d13">div</div>
+<style>
+div#d13{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:rotateshisan 1s linear,translateshisan 1s 1s linear,scaleshisan 1s 2s linear forwards;
+}
+@keyframes rotateshisan{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+@keyframes translateshisan{
+    100%{
+        transform:translateX(400px);
+    }
+}
+@keyframes scaleshisan{
+    0%{
+        transform:translateX(400px);
+    }
+    100%{
+        transform:translateX(400px) scale(1.5);
+    }
+}
+</style>
+
+
+<p>14.能否运动中，当我hover时，希望暂停：也可以做到</p>
+<div id="d14">div</div>
+<style>
+div#d14{
+    margin:100px;
+    width:100px;
+    height:100px;
+    background:#00ffff;
+    animation:rotateshisi 1s linear,translateshisi 1s 1s linear,scaleshisi 1s 2s linear forwards;
+}
+@keyframes rotateshisi{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+@keyframes translateshisi{
+    100%{
+        transform:translateX(400px);
+    }
+}
+@keyframes scaleshisi{
+    0%{
+        transform:translateX(400px);
+    }
+    100%{
+        transform:translateX(400px) scale(1.5);
+    }
+}
+div#d14:hover{
+    animation-play-state:paused;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

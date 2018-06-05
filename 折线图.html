@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="https://static.jianshukeji.com/highcharts/images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* css 代码  */
+    </style>
+    <script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+    <script src="https://img.hcharts.cn/highstock/highstock.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+</head>
+
+<body>
+    <div id="container" style="height: 400px; min-width: 600px"></div>
+    <script>
+        $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/large-dataset.json&callback=?', function (data) {
+            Highcharts.stockChart('container', {
+                chart: {
+                    zoomType: 'xy'
+                },
+                title: {
+                    text: 'Y 轴滚动条'
+                },
+                subtitle: {
+                    text: '请缩放图表后查看滚动条'
+                },
+                yAxis: {
+                    scrollbar: {
+                        enabled: true,
+                        showFull: false
+                    }
+                },
+                tooltip: {
+                    split: false
+                },
+                series: [{
+                    data: data.data,
+                    pointStart: data.pointStart,
+                    pointInterval: data.pointInterval
+                }]
+            });
+        });
+    </script>
+</body>
+
+</html>

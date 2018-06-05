@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>焦点轮播图_1</title>
+    <style type="text/css">
+    @font-face {
+    font-family: 'iconfont';
+      /* project id 282854 */
+    src: url("https://at.alicdn.com/t/font_t8a5fr2b6z7fzuxr.eot");
+    src: url("https://at.alicdn.com/t/font_t8a5fr2b6z7fzuxr.eot?#iefix") format("embedded-opentype"), url("https://at.alicdn.com/t/font_t8a5fr2b6z7fzuxr.woff") format("woff"), url("https://at.alicdn.com/t/font_t8a5fr2b6z7fzuxr.ttf") format("truetype"), url("https://at.alicdn.com/t/font_t8a5fr2b6z7fzuxr.svg#iconfont") format("svg"); }
+    .arrow {
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale; }
+
+    * {
+        margin: 0;
+        padding: 0; }
+    #wapper {
+        width: 600px;
+        height: 370px;
+        margin: 30px auto;
+      /*    border: 1px solid red;*/
+        overflow: hidden;
+        position: relative; }
+    #wapper #pic_list {
+        width: 4200px;
+        height: 370px;
+        position: absolute;
+        transition: left 1s;
+        -moz-transition: left 1s;
+        /* Firefox 4 */
+        -webkit-transition: left 1s;
+        /* Safari and Chrome */
+        -o-transition: left 1s;
+        /* Opera */ }
+    #wapper #pic_list img {
+        width: 600px;
+        height: 370px;
+        float: left; }
+    #wapper #button_list {
+        width: 140px;
+        height: 10px;
+        position: absolute;
+        bottom: 20px;
+        left: 280px; }
+    #wapper #button_list span {
+        cursor: pointer;
+        float: left;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        background-color: #333;
+        margin-right: 15px; }
+    #wapper #button_list .on {
+        background: orangered; }
+    #wapper .arrow {
+        cursor: pointer;
+        display: none;
+        line-height: 50px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 180px;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: #fff; }
+    #wapper #prev {
+        left: 20px; }
+    #wapper #next {
+        right: 20px; }
+    #wapper:hover .arrow {
+        display: block; }
+    #wapper .arrow:hover {
+        background-color: rgba(0, 0, 0, 0.7); }
+
+    /*# sourceMappingURL=style.css.map */
+    </style>
+    <script>
+    window.onload = function(){
+        var wapper = document.getElementById('wapper');
+        var list = document.getElementById('pic_list');
+        var buttons = document.getElementById('button_list').getElementsByTagName('span');
+        var prev = document.getElementById('prev');
+        var next = document.getElementById('next');
+        var index = 1;
+        // var len = 5;
+        // var animated = false;
+        // var interval = 3000;
+        var timer;
+        var flag = false;
+
+        next.onclick = function(){
+            if(!flag){
+                flag = true;
+                if(index == 5){
+                    index = 1;
+                }else{
+                    index += 1;
+                }
+                showButton();
+                animate(-600);
+            }
+        }   
+        prev.onclick = function(){
+            if(!flag){
+                flag = true;
+                 if(index == 1){
+                    index = 5;
+                }else{
+                    index -= 1;
+                }
+            }    
+            showButton();       
+            animate(600);
+        }   
+        function animate(offset){
+            flag = false;
+            var newLeft = parseInt(list.style.left) + offset;
+
+            list.style.left = newLeft + "px";
+
+            if(newLeft > -600){
+                list.style.left = -3000 + "px";
+            }
+            if(newLeft < -3000){
+                list.style.left = -600 + "px";
+            }               
+        }
+
+        function showButton(){
+            for(var i = 0;i<buttons.length;i++){
+                if(buttons[i].className == 'on'){
+                    buttons[i].className = '';
+                    break;
+                }
+            }
+            buttons[index - 1].className = 'on';
+        }
+
+        function play(){
+            timer = setInterval(function(){
+                next.onclick();
+            },3000);
+        }
+
+        function stop(){
+            clearInterval(timer);
+        }
+
+        for(var i = 0;i < buttons.length;i++){
+            buttons[i].onclick = function(){
+                if(this.className == 'on'){
+                    return;
+                }
+            var myIndex = parseInt(this.getAttribute('index'));
+            var offset = -600 *(myIndex - index);
+            animate(offset);
+            index = myIndex;
+            showButton();   
+            }
+        }
+
+        play();
+        wapper.onmouseover = stop;
+        wapper.onmouseout = play;
+    }   
+    </script>
+</head>
+<body>
+    <div id="wapper">
+        <div id="pic_list" style="left: -600px">
+            <img src="http://img.hb.aicdn.com/fba12feb1bf80333b3198e9d79241d7625ebb34c625f6-9jyXAo_fw658">
+            <img src="http://img.hb.aicdn.com/9549020cf58cff8162b8e4aa60682e2562e0bc2777ae3-4t9yvE_fw658">
+            <img src="http://img.hb.aicdn.com/ad84a5e576b29328afd81caea82fce006d4fbc761b02f-OeJagL_fw658">
+            <img src="http://img.hb.aicdn.com/c7b5dbcbe0d2afb9ae1c405ef1dd6b70003249613ddb1-NTd5PS_fw658">
+            <img src="http://img.hb.aicdn.com/08bdd42ec041dfa4a43723c3ba035619a5adc41650da0-2dDQbF_fw658">
+            <img src="http://img.hb.aicdn.com/fba12feb1bf80333b3198e9d79241d7625ebb34c625f6-9jyXAo_fw658">
+            <img src="http://img.hb.aicdn.com/9549020cf58cff8162b8e4aa60682e2562e0bc2777ae3-4t9yvE_fw658"/>
+        </div>
+        <div id="button_list">
+            <span index="1" class="on"></span>
+            <span index="2"></span>
+            <span index="3"></span>
+            <span index="4"></span>
+            <span index="5"></span>
+        </div>
+        <i id="prev" class="arrow"></i>
+        <i id="next" class="arrow"></i>
+
+    </div>
+</body>
+</html>

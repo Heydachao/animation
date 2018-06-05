@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+          *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+          }
+          .rili{
+            width: auto;
+            height: auto;
+            background: purple;
+            color: white;
+            padding: 10px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 14px;
+          }
+          .rili p{
+
+          }
+
+        </style>
+        <script>
+          window.onload = function(){
+
+            setInterval(fn,1000);
+
+            function fn(){
+
+              var date = new Date();
+              var FullYear = date.getFullYear();
+              var Month = date.getMonth();
+              var dat = date.getDate();
+              var hours = date.getHours();
+              var Minutes = date.getMinutes();
+              var Seconds = date.getSeconds();
+              var Day = date.getDay();
+
+              // if(Month<10){Month="0"+Month}
+              // if(dat<10){dat="0"+dat}
+              // if(hours<10){hours="0"+hours}
+              // if(Minutes<10){Minutes="0"+Minutes}
+              // if(Seconds<10){Seconds="0"+Seconds}
+              dat<10 ? dat="0"+dat : dat;
+              hours<10 ? hours="0"+hours : hours;
+              Minutes<10 ? Minutes="0"+Minutes : Minutes;
+              Seconds<10 ? Seconds="0"+Seconds : Seconds;
+
+
+              var arr = ['星期天','星期一','星期二','星期三','星期四','星期五','星期六'];
+              var rili = document.getElementsByClassName('rili')[0];
+
+              rili.innerHTML = '今天是：'+FullYear+'年  '+(Month+1)+'月  '+dat+'日 '+hours+':'+Minutes+':'+Seconds+'  '+arr[Day];
+
+
+            };
+
+
+
+          }
+        </script>
+
+    </head>
+    <body>
+      <div class="rili">
+        <p></p>
+      </div>
+
+    </body>
+</html>

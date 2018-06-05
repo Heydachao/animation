@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+          *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+          }
+          #btn {
+            width: 150px;
+            height: 60px;
+            line-height: 60px;
+            display: block;
+            margin: 100px auto;
+          }
+
+        </style>
+        <script>
+        window.onload = function(){
+
+          var btn = document.getElementById('btn');
+          var s = 5;
+          var timer = null;
+
+          btn.onclick = function(){
+
+            var that = this;
+
+            clearInterval(timer);
+
+            this.disabled = true;
+
+            var timer = setInterval(zouqi,1000);
+
+            function zouqi(){
+              s--;
+
+              if (s >= 0) {
+
+                btn.innerHTML = '剩余'+s+'秒后重新发送';
+
+              }
+                else
+              {
+
+                that.disabled = false;
+                btn.innerHTML = '重新发送验证码';
+                clearInterval(timer);
+                s = 5;
+
+              }
+            }
+          }
+        }
+          </script>
+
+    </head>
+    <body>
+     <button id="btn">点击发送验证码</button>
+    </body>
+</html>

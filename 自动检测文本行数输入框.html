@@ -1,0 +1,103 @@
+<div>
+    <h1>输入看看？</h1>
+    <input placeholder="What needs to be done?">
+    <ul></ul>
+</div>
+<style>
+    body {
+        font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 1.4em;
+        background: #eeeeee;
+        color: #333333;
+        width: 510px;
+        margin: 0 auto;
+    }
+
+    div {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 40px;
+        border-radius: 5px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    input {
+        width: 466px;
+        font-size: 24px;
+        font-family: inherit;
+        line-height: 1.4em;
+        border: 0;
+        outline: none;
+        padding: 6px;
+        border: 1px solid #999999;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    ul li {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    ul li a {
+        display: inline-block;
+        float: right;
+        text-decoration: none;
+    }
+
+    ul li a:before {
+        content: '\2716';
+    }
+
+    /* here!!!*/
+
+    ul li:first-child:nth-last-child(-n+9),
+    ul li:first-child:nth-last-child(-n+9)~li {
+        font-size: 20px;
+    }
+
+    ul li:first-child:nth-last-child(-n+6),
+    ul li:first-child:nth-last-child(-n+6)~li {
+        font-size: 25px;
+    }
+
+    ul li:first-child:nth-last-child(-n+3),
+    ul li:first-child:nth-last-child(-n+3)~li {
+        font-size: 30px;
+    }
+</style>
+<script type="text/template" id="tmpl">
+    <li>
+        <span>text</span>
+        <a href="javascript:"></a>
+    </li>
+</script>
+<script>
+    var input = document.querySelector('input');
+    var list = document.querySelector('ul');
+    input.addEventListener('keypress', function (event) {
+        if (event.keyCode == '13' && this.value.trim() != '') {
+            createItem(this.value)
+        }
+    });
+
+    var createItem = function (value) {
+        list.insertAdjacentHTML(
+            'beforeend',
+            document.querySelector('#tmpl').innerHTML.replace('text', value)
+        );
+    }
+    list.addEventListener('click', function (event) {
+        var target = event.target;
+        if (target.nodeName == 'A') {
+            var li = target.parentNode;
+            list.removeChild(li);
+        }
+    });
+</script>
